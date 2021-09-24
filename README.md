@@ -11,7 +11,7 @@ list of "official" templates.
 ## Usage Example
 
 ```sh
-stack new glebec/full  # or any <TEMPLATE_NAME>.hsfiles in this repo
+stack new myproject glebec/full  # or any <TEMPLATE_NAME>.hsfiles in this repo
 ```
 
 ## Templates
