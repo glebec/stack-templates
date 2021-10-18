@@ -67,6 +67,7 @@ tests:
         dependencies:
             - {{name}}
             - hspec
+            # - hedgehog
             # - QuickCheck
 
 {-# START_FILE Setup.hs #-}
