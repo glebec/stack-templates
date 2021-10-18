@@ -43,26 +43,64 @@ default-extensions:
     - TypeApplications
     - TypeOperators
 
+ghc-options:
+    - -Wall
+    - -Wcompat
+    - -Wincomplete-record-updates
+    - -Wincomplete-uni-patterns
+    - -Wredundant-constraints
+
+library:
+    source-dirs: src
+
 executables:
     {{name}}:
         main:         Main.hs
-        source-dirs:  src
-        ghc-options:
-            - -Wall
-            - -Wcompat
-            - -Wincomplete-record-updates
-            - -Wincomplete-uni-patterns
-            - -Wredundant-constraints
+        source-dirs:  app
+        dependencies:
+            - {{name}}
+
+tests:
+    {{name}}-test:
+        main:        Spec.hs
+        source-dirs: test
+        dependencies:
+            - {{name}}
+            - hspec
+            # - QuickCheck
 
 {-# START_FILE Setup.hs #-}
 import Distribution.Simple
 main = defaultMain
 
-{-# START_FILE src/Main.hs #-}
+{-# START_FILE src/Lib.hs #-}
+module Lib where
+
+greeting :: String
+greeting = "Hello"
+
+{-# START_FILE app/Main.hs #-}
 module Main where
 
+import Lib
+
 main :: IO ()
-main = putStrLn "Hello"
+main = putStrLn greeting
+
+{-# START_FILE test/Spec.hs #-}
+{-# OPTIONS_GHC -F -pgmF hspec-discover #-}
+
+{-# START_FILE test/LibSpec.hs #-}
+module LibSpec where
+
+import Test.Hspec
+import Lib (greeting)
+
+spec :: Spec
+spec = do
+    describe "greeting" $ do
+        it "is \"Hello\"" $ do
+            greeting `shouldBe` "Hello"
 
 {-# START_FILE README.md #-}
 # {{name}}
