@@ -105,6 +105,17 @@ spec = do
 {-# START_FILE README.md #-}
 # {{name}}
 
+## Note to author
+
+Add the following to the generated `stack.yaml` for [HLS Haddock on hover][hd]:
+
+```yaml
+ghc-options:
+  '$everything': -haddock
+```
+
+[hd]: https://github.com/haskell/vscode-haskell#local-documentation
+
 {-# START_FILE LICENSE #-}
 Copyright {{author-name}}{{^author-name}}Author name here{{/author-name}} (c) {{year}}{{^year}}2021{{/year}}
 
